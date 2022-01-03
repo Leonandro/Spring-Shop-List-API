@@ -20,7 +20,7 @@ public class Item {
 
     private  Boolean active;
 
-    @OneToMany(mappedBy = "realItem")
+    @OneToMany(mappedBy = "item")
     private List<RealItem> realItems;
 
     public long getId() {

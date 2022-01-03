@@ -20,7 +20,7 @@ public class RealItem {
     private  Boolean active;
 
     @ManyToOne
-    private  RealItem realItem;
+    private Item item;
 
     @ManyToOne
     private List list;
@@ -62,12 +62,12 @@ public class RealItem {
         this.active = active;
     }
 
-    public RealItem getRealItem() {
-        return realItem;
+    public Item getRealItem() {
+        return item;
     }
 
-    public void setRealItem(RealItem realItem) {
-        this.realItem = realItem;
+    public void setRealItem(Item item) {
+        this.item = item;
     }
 
     public List getList() {
