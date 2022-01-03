@@ -1,5 +1,7 @@
 package com.project.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Item {
 
     private  Boolean perishable;
 
+    @JsonIgnore
     private  Boolean active;
 
     @OneToMany(mappedBy = "item")

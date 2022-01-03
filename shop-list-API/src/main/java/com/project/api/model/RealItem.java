@@ -1,5 +1,7 @@
 package com.project.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity(name = "realitem")
@@ -17,13 +19,14 @@ public class RealItem {
 
     private  Boolean perishable;
 
+    @JsonIgnore
     private  Boolean active;
 
     @ManyToOne
     private Item item;
 
     @ManyToOne
-    private List list;
+    private ItemsList list;
 
 
     public long getId() {
@@ -70,11 +73,11 @@ public class RealItem {
         this.item = item;
     }
 
-    public List getList() {
+    public ItemsList getList() {
         return list;
     }
 
-    public void setList(List list) {
+    public void setList(ItemsList list) {
         this.list = list;
     }
 }
