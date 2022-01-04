@@ -5,7 +5,6 @@ import com.project.api.model.DTO.RealItemDTO;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity(name = "item")
 @Table(name = "item")

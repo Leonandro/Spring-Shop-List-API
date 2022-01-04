@@ -22,7 +22,7 @@ public class RealItem {
     @JsonIgnore
     private  Boolean active;
 
-
+    @JsonIgnore
     @ManyToOne
     private Item item;
 
