@@ -1,10 +1,14 @@
 package com.project.api.service;
 
+import com.project.api.exception.DifferentRealItemException;
+import com.project.api.exception.NoEntityFoundException;
 import com.project.api.model.DTO.ItemDTO;
 import com.project.api.model.DTO.RealItemDTO;
 import com.project.api.model.Item;
+import com.project.api.model.ItemsList;
 import com.project.api.model.RealItem;
 import com.project.api.repository.ItemRepository;
+import com.project.api.repository.ItemsListRepository;
 import com.project.api.repository.RealItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,12 @@ public class RealItemService {
 
     @Autowired
     RealItemRepository repository;
+
+    @Autowired
+    ItemsListRepository itemsListRepository;
+
+    @Autowired
+    ItemRepository itemRepository;
 
     /**
      * search all the active items
@@ -36,13 +46,28 @@ public class RealItemService {
         return repository.findById(id);
     }
 
-    public void insertItem (ItemDTO itemDTO) {
-        RealItem item = new RealItem();
-        item.setActive(true);
-        item.setName(itemDTO.getName());
-        item.setPrice(itemDTO.getPrice());
-        item.setPerishable(itemDTO.getPerishable());
-        repository.save(item);
+    /**
+     * insert a real item on the database
+     * @param realItemDTO the
+     */
+    public void insertItem (RealItemDTO realItemDTO) {
+        RealItem realItem = new RealItem();
+        realItem.setActive(true);
+        realItem.setName(realItemDTO.getName());
+        realItem.setPrice(realItemDTO.getPrice());
+        realItem.setPerishable(realItemDTO.getPerishable());
+
+        Optional<ItemsList> itemsList = itemsListRepository.findById(realItemDTO.getListId());
+        Optional<Item> baseItem = itemRepository.findById(realItemDTO.getItemId());
+
+        if (!itemsList.isPresent()) { throw new NoEntityFoundException("The List with id={" + realItemDTO.getListId() +"} was not found"); }
+        if (!baseItem.isPresent()) { throw new NoEntityFoundException("The Base Item with id={" + realItemDTO.getItemId() +"} was not found"); }
+        if (!baseItem.get().isCompatibleWith(realItemDTO)) { throw  new DifferentRealItemException("The Real Item has several differences with the base item"); }
+
+        realItem.setList(itemsList.get());
+        realItem.setItem(baseItem.get());
+
+        repository.save(realItem);
     }
 
     public void updateItem (ItemDTO itemDTO) {

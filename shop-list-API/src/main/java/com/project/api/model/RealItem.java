@@ -22,9 +22,11 @@ public class RealItem {
     @JsonIgnore
     private  Boolean active;
 
+
     @ManyToOne
     private Item item;
 
+    @JsonIgnore
     @ManyToOne
     private ItemsList list;
 
@@ -65,11 +67,11 @@ public class RealItem {
         this.active = active;
     }
 
-    public Item getRealItem() {
+    public Item getItem() {
         return item;
     }
 
-    public void setRealItem(Item item) {
+    public void setItem(Item item) {
         this.item = item;
     }
 

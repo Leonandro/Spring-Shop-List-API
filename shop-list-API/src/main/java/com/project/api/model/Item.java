@@ -1,9 +1,11 @@
 package com.project.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.api.model.DTO.RealItemDTO;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "item")
 @Table(name = "item")
@@ -18,10 +20,10 @@ public class Item {
 
     private double price;
 
-    private  Boolean perishable;
+    private Boolean perishable;
 
     @JsonIgnore
-    private  Boolean active;
+    private Boolean active;
 
     @OneToMany(mappedBy = "item")
     private List<RealItem> realItems;
@@ -60,6 +62,13 @@ public class Item {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+
+    public boolean isCompatibleWith(RealItemDTO realItemDTO) {
+        System.out.println(realItemDTO.getName().toLowerCase().contains(this.name.toLowerCase()) + " - " + (this.perishable == realItemDTO.getPerishable()));
+        return realItemDTO.getName().toLowerCase().contains(this.name) &&
+                this.perishable == realItemDTO.getPerishable();
     }
 
 }

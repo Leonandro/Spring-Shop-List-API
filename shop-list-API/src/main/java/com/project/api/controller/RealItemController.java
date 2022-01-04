@@ -1,6 +1,7 @@
 package com.project.api.controller;
 
 import com.project.api.model.DTO.ItemDTO;
+import com.project.api.model.DTO.RealItemDTO;
 import com.project.api.model.RealItem;
 import com.project.api.service.RealItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class RealItemController {
     }
 
     @PostMapping
-    public void postItem(@RequestBody ItemDTO itemDTO) {
+    public void postItem(@RequestBody RealItemDTO itemDTO) {
         service.insertItem(itemDTO);
     }
     @DeleteMapping(path = "/{id}")
