@@ -29,6 +29,9 @@ public class RealItemController {
         service.insertItem(itemDTO);
     }
 
+    @PutMapping
+    public  void  updateItem(@RequestBody RealItemDTO realItemDTO) { service.updateItem(realItemDTO); }
+
     @DeleteMapping(path = "/{id}")
     public void deleteItemById(@PathVariable("id")long id){
         service.deleteItem(id);

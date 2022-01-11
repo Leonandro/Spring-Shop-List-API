@@ -70,8 +70,14 @@ public class RealItemService {
         repository.save(realItem);
     }
 
-    public void updateItem (ItemDTO itemDTO) {
-        return;
+    public void updateItem (RealItemDTO realItemDTOtemDTO) {
+        Optional<RealItem> item = repository.findById(realItemDTOtemDTO.getId());
+        if (!item.isPresent()) { throw  new NoEntityFoundException("The item with id={" + realItemDTOtemDTO.getId() + "} was not found"); }
+        item.get().setName(realItemDTOtemDTO.getName());
+        item.get().setPrice(realItemDTOtemDTO.getPrice());
+        item.get().setPerishable(realItemDTOtemDTO.getPerishable());
+        //TODO allow the update of the list and the item that the real list is related
+        repository.save(item.get());
     }
 
     /**
