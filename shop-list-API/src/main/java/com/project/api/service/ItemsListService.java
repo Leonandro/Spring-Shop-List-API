@@ -1,7 +1,9 @@
 package com.project.api.service;
 
+import com.project.api.exception.NoEntityFoundException;
 import com.project.api.model.DTO.ItemDTO;
 import com.project.api.model.DTO.ItemsListDTO;
+import com.project.api.model.Item;
 import com.project.api.model.ItemsList;
 import com.project.api.repository.ItemsListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,14 @@ public class ItemsListService {
         repository.save(list);
     }
 
-    public void updateItem (ItemDTO itemDTO) {
-
+    public void updateList (ItemsListDTO listDTO) {
+        Optional<ItemsList> list = repository.findById(listDTO.getId());
+        if (!list.isPresent()) { throw  new NoEntityFoundException("The list with id={" + listDTO.getId() + "} was not found"); }
+        list.get().setName(listDTO.getName());
+        list.get().setTotalPrice(listDTO.getTotalPrice());
+        // TODO allow the update of the items!!!
+        //list.get().getItems(listDTO.getItems());
+        repository.save(list.get());
     }
 
     /**

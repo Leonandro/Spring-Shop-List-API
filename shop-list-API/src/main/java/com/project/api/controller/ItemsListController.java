@@ -15,22 +15,25 @@ public class ItemsListController {
     ItemsListService service;
 
     @GetMapping
-    public List<ItemsList> finalAllItems() {
+    public List<ItemsList> finalAllLists() {
         return service.getAllLists();
     }
 
     @GetMapping(path = "/{id}")
-    public ItemsList findItemById(@PathVariable("id") long id) {
+    public ItemsList findListById(@PathVariable("id") long id) {
         return service.getListByID(id).get();
     }
 
     @PostMapping
-    public void postItem(@RequestBody ItemsListDTO listDTO) {
+    public void postList(@RequestBody ItemsListDTO listDTO) {
         service.insertItemsList(listDTO);
     }
 
+    @PutMapping
+    public void  putList(@RequestBody ItemsListDTO listDTO) { service.updateList(listDTO); }
+
     @DeleteMapping(path = "/{id}")
-    public void deleteItemById(@PathVariable("id")long id){
+    public void deleteListById(@PathVariable("id")long id){
         service.deleteList(id);
     }
 
