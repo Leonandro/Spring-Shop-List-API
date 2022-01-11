@@ -34,7 +34,7 @@ public class ItemsListService {
         return repository.findById(id);
     }
 
-    public void insertItem (ItemsListDTO listDTO) {
+    public void insertItemsList(ItemsListDTO listDTO) {
         ItemsList list = new ItemsList();
         list.setActive(true);
         list.setName(listDTO.getName());

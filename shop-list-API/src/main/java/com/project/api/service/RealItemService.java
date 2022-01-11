@@ -62,7 +62,7 @@ public class RealItemService {
 
         if (!itemsList.isPresent()) { throw new NoEntityFoundException("The List with id={" + realItemDTO.getListId() +"} was not found"); }
         if (!baseItem.isPresent()) { throw new NoEntityFoundException("The Base Item with id={" + realItemDTO.getItemId() +"} was not found"); }
-        if (!baseItem.get().isCompatibleWith(realItemDTO)) { throw  new DifferentRealItemException("The Real Item has several differences with the base item"); }
+        //if (!baseItem.get().isCompatibleWith(realItemDTO)) { throw  new DifferentRealItemException("The Real Item has several differences with the base item"); }
 
         realItem.setList(itemsList.get());
         realItem.setItem(baseItem.get());
@@ -71,7 +71,7 @@ public class RealItemService {
     }
 
     public void updateItem (ItemDTO itemDTO) {
-
+        return;
     }
 
     /**

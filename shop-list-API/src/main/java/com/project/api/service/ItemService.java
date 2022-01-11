@@ -1,5 +1,6 @@
 package com.project.api.service;
 
+import com.project.api.exception.NoEntityFoundException;
 import com.project.api.model.DTO.ItemDTO;
 import com.project.api.model.Item;
 import com.project.api.repository.ItemRepository;
@@ -42,7 +43,12 @@ public class ItemService {
     }
 
     public void updateItem (ItemDTO itemDTO) {
-
+        Optional<Item> item = repository.findById(itemDTO.getId());
+        if (!item.isPresent()) { throw  new NoEntityFoundException("The item with id={" + itemDTO.getId() + "} was not found"); }
+        item.get().setName(itemDTO.getName());
+        item.get().setPrice(itemDTO.getPrice());
+        item.get().setPerishable(itemDTO.getPerishable());
+        repository.save(item.get());
     }
 
     /**

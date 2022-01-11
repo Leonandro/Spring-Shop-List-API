@@ -26,7 +26,7 @@ public class ItemsListController {
 
     @PostMapping
     public void postItem(@RequestBody ItemsListDTO listDTO) {
-        service.insertItem(listDTO);
+        service.insertItemsList(listDTO);
     }
 
     @DeleteMapping(path = "/{id}")
